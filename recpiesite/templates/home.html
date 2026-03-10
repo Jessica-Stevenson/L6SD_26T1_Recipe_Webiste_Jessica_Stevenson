@@ -1,10 +1,35 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 
-<p>
-banana
-</p>
+<div class="d-flex flex-wrap justify-content-center gap-3">
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="{% static 'recpiestatic/Le_Logo.png' %}" alt="Card image">
+        <div class="card-body">
+            <h4 class="card-title">Chickem</h4>
+            <p class="card-text">Some example text.</p>
+            <a href="#" class="btn btn-primary">View Details</a>
+        </div>
+    </div>
 
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="{% static 'recpiestatic/Le_Logo.png' %}" alt="Card image">
+        <div class="card-body">
+            <h4 class="card-title">Chickem</h4>
+            <p class="card-text">Some example text.</p>
+            <a href="#" class="btn btn-primary">View Details</a>
+        </div>
+    </div>
+
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="{% static 'recpiestatic/Le_Logo.png' %}" alt="Card image">
+        <div class="card-body">
+            <h4 class="card-title">Chickem</h4>
+            <p class="card-text">Some example text.</p>
+            <a href="#" class="btn btn-primary">View Details</a>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
