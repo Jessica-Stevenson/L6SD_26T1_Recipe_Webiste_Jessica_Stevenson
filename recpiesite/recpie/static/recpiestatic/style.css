@@ -2,3 +2,110 @@ body {
     background-color: #f4f4f4;
     font-family: Arial, sans-serif;
 }
+
+.custom-navbar {
+    background-color: #9BC264;
+}
+
+.custom-navbar .navbar-brand {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.logo-img {
+    height: 40px;
+    width: auto;
+}
+
+/* ---------------- Main navbar links ---------------- */
+.custom-navbar .nav-link,
+.custom-navbar .dropdown-toggle {
+    position: relative;
+    color: white;
+    text-decoration: none;
+    padding-bottom: 0.25rem;
+    display: inline-block;
+    transition: color 0.3s ease;
+    font-family: 'Auralyess free trial', sans-serif;
+    letter-spacing: 1px;
+    font-size: 20px;
+}
+
+/* Underline for main links and dropdown toggle */
+.custom-navbar .nav-link::after,
+.custom-navbar .dropdown-toggle::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    height: 4px;
+    width: 0;
+    background-color: white;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+/* Hover underline */
+.custom-navbar .nav-link:hover::after,
+.custom-navbar .dropdown-toggle:hover::after {
+    width: 100%;
+    left: 0;
+    transform: none;
+}
+
+/* Remove default Bootstrap dropdown arrow */
+.custom-navbar .dropdown-toggle::after {
+    display: none;
+}
+
+/* ---------------- Dropdown menu ---------------- */
+.custom-navbar .dropdown-menu {
+    display: block; /* Needed for animation */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    margin-top: 0;
+    background-color: #ffffff;
+    border: none;
+}
+
+/* Show dropdown on hover */
+.custom-navbar .dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* ---------------- Dropdown items ---------------- */
+.custom-navbar .dropdown-item {
+    position: relative;
+    color: #9BC264;
+    padding: 0.5rem 1rem;
+    transition: color 0.3s ease, background 0.3s ease;
+    font-family: 'Auralyess free trial', sans-serif;
+    letter-spacing: 1px;
+    font-size: 20px;
+}
+
+/* Underline for dropdown items */
+.custom-navbar .dropdown-item::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    height: 4px;
+    width: 0;
+    background-color: white;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+/* Hover underline for dropdown items */
+.custom-navbar .dropdown-item:hover::after {
+    width: 100%;
+    left: 0;
+    transform: none;
+    color: white;
+    background-color: #9BC264;
+}

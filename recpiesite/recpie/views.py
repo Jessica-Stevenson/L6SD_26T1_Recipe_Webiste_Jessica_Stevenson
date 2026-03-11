@@ -6,11 +6,20 @@ from django.contrib.auth.decorators import login_required
 def home_view(request):
     return render(request, 'home.html')
 
-def about_view(request):
-    return render(request, 'about.html')
+def health_diet_view(request):
+    return render(request, 'food/health_diet.html')
 
-def recpie_view(request):
-    return render(request, 'recpie.html')
+def holidays_view(request):
+    return render(request, 'food/holidays.html')
+
+def breakfast_view(request):
+    return render(request, 'food/daily/breakfast.html')
+
+def lunch_view(request):
+    return render(request, 'food/daily/lunch.html')
+
+def dinner_view(request):
+    return render(request, 'food/daily/dinner.html')
 
 def signup_view(request):
     if request.method == 'POST':
@@ -22,4 +31,4 @@ def signup_view(request):
     else:
         form = UserCreationForm()
 
-    return render(request, 'signup.html', {'form': form})
+    return render(request, 'registration/signup.html', {'form': form})
