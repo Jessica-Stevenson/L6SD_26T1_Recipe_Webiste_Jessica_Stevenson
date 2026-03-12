@@ -2,6 +2,14 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
+from .models import Recipe
+from .models import Profile
+
+@login_required
+def profile_view(request):
+    profile = Profile.objects.get(user=request.user)
+    return render(request, 'registration/profile.html', {'profile': profile})
 
 def home_view(request):
     return render(request, 'home.html')
@@ -32,3 +40,7 @@ def signup_view(request):
         form = UserCreationForm()
 
     return render(request, 'registration/signup.html', {'form': form})
+
+def recpie_detail_view(request, pk):
+    recpie = get_object_or_404(Recipe, pk=pk)
+    return render(request, 'food/recpie_detail.html', {'recpie': recpie})

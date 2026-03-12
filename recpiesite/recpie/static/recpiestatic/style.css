@@ -1,6 +1,19 @@
+@font-face {
+    font-family: 'Auralyess';
+    src: url("/static/recpiestatic/AuralyessFreeTrial-RpMrE.ttf") format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
     background-color: #f4f4f4;
     font-family: Arial, sans-serif;
+}
+
+.heading{
+    font-family: 'Auralyess', sans-serif;
+    color: #9BC264;
+    letter-spacing: 1px;
 }
 
 .custom-navbar {
@@ -17,21 +30,24 @@ body {
     width: auto;
 }
 
-/* ---------------- Main navbar links ---------------- */
+/* ---------------- Main links & dropdown ---------------- */
 .custom-navbar .nav-link,
 .custom-navbar .dropdown-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: relative;
     color: white;
     text-decoration: none;
-    padding-bottom: 0.25rem;
-    display: inline-block;
-    transition: color 0.3s ease;
-    font-family: 'Auralyess free trial', sans-serif;
+    font-family: 'Auralyess', sans-serif;
     letter-spacing: 1px;
     font-size: 20px;
+    line-height: 1.5;
+    padding-bottom: 0.25rem;
+    transition: color 0.3s ease;
 }
 
-/* Underline for main links and dropdown toggle */
+/* Hover underline */
 .custom-navbar .nav-link::after,
 .custom-navbar .dropdown-toggle::after {
     content: '';
@@ -45,7 +61,6 @@ body {
     transform: translateX(-50%);
 }
 
-/* Hover underline */
 .custom-navbar .nav-link:hover::after,
 .custom-navbar .dropdown-toggle:hover::after {
     width: 100%;
@@ -58,9 +73,9 @@ body {
     display: none;
 }
 
-/* ---------------- Dropdown menu ---------------- */
+/* Dropdown menu */
 .custom-navbar .dropdown-menu {
-    display: block; /* Needed for animation */
+    display: block;
     opacity: 0;
     visibility: hidden;
     transform: translateY(10px);
@@ -70,25 +85,25 @@ body {
     border: none;
 }
 
-/* Show dropdown on hover */
 .custom-navbar .dropdown:hover .dropdown-menu {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
 }
 
-/* ---------------- Dropdown items ---------------- */
 .custom-navbar .dropdown-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: relative;
     color: #9BC264;
     padding: 0.5rem 1rem;
-    transition: color 0.3s ease, background 0.3s ease;
-    font-family: 'Auralyess free trial', sans-serif;
+    font-family: 'Auralyess', sans-serif;
     letter-spacing: 1px;
     font-size: 20px;
+    transition: color 0.3s ease, background 0.3s ease;
 }
 
-/* Underline for dropdown items */
 .custom-navbar .dropdown-item::after {
     content: '';
     position: absolute;
@@ -101,11 +116,50 @@ body {
     transform: translateX(-50%);
 }
 
-/* Hover underline for dropdown items */
 .custom-navbar .dropdown-item:hover::after {
     width: 100%;
     left: 0;
     transform: none;
-    color: white;
     background-color: #9BC264;
+}
+
+/* ---------------- Username + Logout ---------------- */
+.user-logout-wrapper {
+    display: flex;
+    align-items: center;  /* vertical center */
+    gap: 0.5rem;
+}
+
+.user-logout-wrapper a {
+    display: flex;         /* flex ensures perfect vertical alignment */
+    align-items: center;
+    justify-content: center;
+    font-family: 'Auralyess', sans-serif;
+    font-size: 20px;
+    line-height: 1.5;
+    padding: 0;
+    margin: 0;
+    color: white;
+    text-decoration: none;
+    position: relative;
+    cursor: pointer;
+}
+
+/* Hover underline for username/logout */
+.user-logout-wrapper a::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    height: 4px;
+    width: 0;
+    background-color: white;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.user-logout-wrapper a:hover::after {
+    width: 100%;
+    left: 0;
+    transform: none;
 }
