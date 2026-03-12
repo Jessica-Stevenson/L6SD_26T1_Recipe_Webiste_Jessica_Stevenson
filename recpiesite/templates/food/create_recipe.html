@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+
+<h2>Create Recipe</h2>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="mb-3">
+        {{ form.title.label_tag }}
+        {{ form.title }}
+    </div>
+
+    <div class="mb-3">
+        {{ form.ingredients.label_tag }}
+        {{ form.ingredients }}
+    </div>
+
+    <div class="mb-3">
+        {{ form.instructions.label_tag }}
+        {{ form.instructions }}
+    </div>
+
+    <div class="mb-3">
+        {{ form.image.label_tag }}
+        {{ form.image }}
+    </div>
+
+    <button class="btn btn-success">Create Recipe</button>
+
+</form>
+
+</div>
+{% endblock %}

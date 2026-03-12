@@ -2,8 +2,21 @@
 {% load static %}
 
 {% block content %}
+
+
 <div class="container mt-4">
+        {% if user.is_authenticated %}
+        <div class="text-center mt-4">
+            <a href="{% url 'create_recipe' %}" class="btn btn-success btn-lg">
+                Create Recipe
+            </a>
+        </div>
+        {% endif %}
+
     <h2 class="mb-4 text-center heading">Recipes</h2>
+
+    
+
     <div class="row row-cols-1 row-cols-md-3 g-4">
         {% for recpie in recpies %}
         <div class="col">

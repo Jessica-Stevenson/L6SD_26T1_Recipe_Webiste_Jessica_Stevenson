@@ -5,6 +5,21 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from .models import Recipe
 from .models import Profile
+from .forms import RecipeForm
+
+@login_required
+def create_recipe_view(request):
+    if request.method == 'POST':
+        form = RecipeForm(request.POST, request.FILES)
+        if form.is_valid():
+            recipe = form.save(commit=False)
+            recipe.user = request.user
+            recipe.save()
+            return redirect('home') 
+    else:
+        form = RecipeForm()
+
+    return render(request, 'food/create_recipe.html', {'form': form})
 
 @login_required
 def profile_view(request):
@@ -12,7 +27,8 @@ def profile_view(request):
     return render(request, 'registration/profile.html', {'profile': profile})
 
 def home_view(request):
-    return render(request, 'home.html')
+    recpies = Recipe.objects.all().order_by('-created_at')
+    return render(request, 'home.html', {'recpies': recpies})
 
 def health_diet_view(request):
     return render(request, 'food/health_diet.html')
