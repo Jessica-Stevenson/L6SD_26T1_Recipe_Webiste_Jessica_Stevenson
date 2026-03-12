@@ -30,6 +30,17 @@ body {
     width: auto;
 }
 
+.card-img-top{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+    display:block;
+}
+
+.card{
+    overflow:hidden;
+}
+
 /* ---------------- Main links & dropdown ---------------- */
 .custom-navbar .nav-link,
 .custom-navbar .dropdown-toggle {

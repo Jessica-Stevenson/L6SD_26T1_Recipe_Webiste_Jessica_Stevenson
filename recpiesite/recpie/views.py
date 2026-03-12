@@ -6,6 +6,20 @@ from django.shortcuts import get_object_or_404
 from .models import Recipe
 from .models import Profile
 from .forms import RecipeForm
+from django.http import HttpResponseForbidden
+
+@login_required
+def delete_recipe_view(request, pk):
+    recipe = get_object_or_404(Recipe, pk=pk)
+
+    if recipe.user != request.user:
+        return HttpResponseForbidden("You cannot delete this recipe.")
+
+    if request.method == "POST":
+        recipe.delete()
+        return redirect('home')
+
+    return render(request, 'food/delete_recipe.html', {'recipe': recipe})
 
 @login_required
 def create_recipe_view(request):
