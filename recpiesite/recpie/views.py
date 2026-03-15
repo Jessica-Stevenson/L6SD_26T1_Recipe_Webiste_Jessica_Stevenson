@@ -73,4 +73,4 @@ def signup_view(request):
 
 def recpie_detail_view(request, pk):
     recpie = get_object_or_404(Recipe, pk=pk)
-    return render(request, 'food/recpie_detail.html', {'recpie': recpie})
+    return render(request, 'food/recipe_detail.html', {'recpie': recpie})

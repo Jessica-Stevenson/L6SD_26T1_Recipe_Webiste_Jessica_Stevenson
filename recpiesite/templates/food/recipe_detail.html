@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container mt-5" style="max-width:800px;">
+
+<div class="card shadow">
+
+{% if recpie.image %}
+<img src="{{ recpie.image.url }}" class="card-img-top">
+{% else %}
+<img src="{% static 'recpiestatic/Le_Logo.png' %}" class="card-img-top">
+{% endif %}
+
+<div class="card-body">
+
+<h2 class="heading">{{ recpie.title }}</h2>
+
+<p class="text-muted">
+Posted by {{ recpie.user.username }} on {{ recpie.created_at|date:"M d, Y" }}
+</p>
+
+<hr>
+
+<h4>Description</h4>
+<p>{{ recpie.description }}</p>
+
+<hr>
+
+<h4>Ingredients</h4>
+<ul>
+{% for ingredient in recpie.ingredients.splitlines %}
+<li>{{ ingredient }}</li>
+{% endfor %}
+</ul>
+
+<hr>
+
+<h4>Instructions</h4>
+<p style="white-space: pre-line;">
+{{ recpie.instructions }}
+</p>
+
+{% if user == recpie.user %}
+<a href="{% url 'delete_recipe' recpie.id %}" class="btn btn-danger mt-3">
+Delete Recipe
+</a>
+{% endif %}
+
+</div>
+</div>
+
+</div>
+
+{% endblock %}
