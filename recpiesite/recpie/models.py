@@ -15,6 +15,7 @@ def create_profile(sender, instance, created, **kwargs):
 class Recipe(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
+    description = models.TextField()
     ingredients = models.TextField()
     instructions = models.TextField()
     image = models.ImageField(upload_to='recipes/', blank=True, null=True)

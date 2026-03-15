@@ -28,11 +28,9 @@
                 {% endif %}
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">{{ recpie.title }}</h5>
-                    <ul class="card-text">
-                        {% for ingredient in recpie.ingredients.splitlines %}
-                            <li>{{ ingredient }}</li>
-                        {% endfor %}
-                    </ul>
+                    <p class="card-text">
+                        {{ recpie.description }}
+                    </p>
 
                     <a href="{% url 'recpie_detail' recpie.id %}" class="btn btn-primary mt-auto">View Details</a>
                     {% if user == recpie.user %}
