@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container mt-5" style="max-width:800px;">
+
+<div class="card shadow">
+
+{% if recipe.image %}
+<img src="{{ recipe.image.url }}" class="card-img-top">
+{% else %}
+<img src="{% static 'recipestatic/Le_Logo.png' %}" class="card-img-top">
+{% endif %}
+
+<div class="card-body">
+
+<h2 class="heading">{{ recipe.title }}</h2>
+
+<p class="text-muted">
+Posted by {{ recipe.user.username }} on {{ recipe.created_at|date:"M d, Y" }}
+</p>
+
+<hr>
+
+<h4>Description</h4>
+<p>{{ recipe.description }}</p>
+
+<hr>
+
+<h4>Ingredients</h4>
+<ul>
+{% for ingredient in recipe.ingredients.splitlines %}
+<li>{{ ingredient }}</li>
+{% endfor %}
+</ul>
+
+<hr>
+
+<h4>Instructions</h4>
+<p style="white-space: pre-line;">
+{{ recipe.instructions }}
+</p>
+
+{% if user == recipe.user %}
+<a href="{% url 'delete_recipe' recipe.id %}" class="btn btn-danger mt-3">
+Delete Recipe
+</a>
+{% endif %}
+
+</div>
+</div>
+
+</div>
+
+{% endblock %}
