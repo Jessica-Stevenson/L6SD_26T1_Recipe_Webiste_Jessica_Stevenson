@@ -44,25 +44,25 @@ def home_view(request):
     recipes = Recipe.objects.all().order_by('-created_at')
     return render(request, 'home.html', {'recipes': recipes})
 
-def health_diet_view(request):
-    recipes = Recipe.objects.filter(category='health').order_by('-created_at')
-    return render(request, 'food/health_diet.html', {'recipes': recipes})
-
-def holidays_view(request):
-    recipes = Recipe.objects.filter(category='holiday').order_by('-created_at')
-    return render(request, 'food/holidays.html', {'recipes': recipes})
-
 def breakfast_view(request):
-    recipes = Recipe.objects.filter(category='breakfast').order_by('-created_at')
+    recipes = Recipe.objects.filter(main_category='daily', sub_category='breakfast').order_by('-created_at')
     return render(request, 'food/daily/breakfast.html', {'recipes': recipes})
 
 def lunch_view(request):
-    recipes = Recipe.objects.filter(category='lunch').order_by('-created_at')
+    recipes = Recipe.objects.filter(main_category='daily', sub_category='lunch').order_by('-created_at')
     return render(request, 'food/daily/lunch.html', {'recipes': recipes})
 
 def dinner_view(request):
-    recipes = Recipe.objects.filter(category='dinner').order_by('-created_at')
+    recipes = Recipe.objects.filter(main_category='daily', sub_category='dinner').order_by('-created_at')
     return render(request, 'food/daily/dinner.html', {'recipes': recipes})
+
+def holidays_view(request):
+    recipes = Recipe.objects.filter(main_category='holiday').order_by('-created_at')
+    return render(request, 'food/holidays.html', {'recipes': recipes})
+
+def health_diet_view(request):
+    recipes = Recipe.objects.filter(main_category='health').order_by('-created_at')
+    return render(request, 'food/health_diet.html', {'recipes': recipes})
 
 def signup_view(request):
     if request.method == 'POST':

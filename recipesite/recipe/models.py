@@ -11,15 +11,17 @@ def create_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
 
-
 class Recipe(models.Model):
+    MAIN_CATEGORIES = [
+        ('daily', 'Daily Recipes'),
+        ('holiday', 'Holidays'),
+        ('health', 'Diet & Health'),
+    ]
 
-    CATEGORY_CHOICES = [
+    SUB_CATEGORIES = [
         ('breakfast', 'Breakfast'),
         ('lunch', 'Lunch'),
         ('dinner', 'Dinner'),
-        ('holiday', 'Holiday'),
-        ('health', 'Health & Diet'),
     ]
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -29,11 +31,9 @@ class Recipe(models.Model):
     instructions = models.TextField()
     image = models.ImageField(upload_to='recipes/', blank=True, null=True)
 
-    category = models.CharField(
-        max_length=20,
-        choices=CATEGORY_CHOICES,
-        default='dinner'
-    )
+    # New fields
+    main_category = models.CharField(max_length=20, choices=MAIN_CATEGORIES)
+    sub_category = models.CharField(max_length=20, choices=SUB_CATEGORIES, blank=True, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
 

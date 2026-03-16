@@ -1,115 +1,104 @@
 {% extends 'base.html' %}
-
 {% block content %}
 
 <div class="container mt-5" style="max-width:700px;">
 
-<h2 class="mb-4 text-center heading">Create Recipe</h2>
+    <h2 class="mb-4 text-center heading">Create Recipe</h2>
 
-<form method="POST" enctype="multipart/form-data" id="recipeForm">
+    <form method="POST" enctype="multipart/form-data" id="recipeForm">
 
-{% csrf_token %}
+        {% csrf_token %}
 
-<div class="mb-3">
-<label class="form-label">Recipe Title</label>
-{{ form.title }}
+        <div class="mb-3">
+            <label class="form-label">Recipe Title</label>
+            {{ form.title }}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Description</label>
+            {{ form.description }}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Main Category</label>
+            {{ form.main_category }}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Sub Category (optional)</label>
+            {{ form.sub_category }}
+        </div>
+
+        <label class="form-label">Ingredients</label>
+
+        <div id="ingredients-container">
+            <!-- Initial ingredient row -->
+            <div class="input-group mb-2 ingredient-row">
+                <input type="text" class="form-control ingredient-field" placeholder="Ingredient">
+                <button type="button" class="btn btn-danger remove-btn">Remove</button>
+            </div>
+        </div>
+
+        <button type="button" class="btn btn-secondary mb-3" onclick="addIngredient()">
+            Add Ingredient
+        </button>
+
+        <!-- Hidden input for Django form -->
+        <input type="hidden" id="id_ingredients" name="ingredients">
+
+        <div class="mb-3">
+            <label class="form-label">Instructions</label>
+            {{ form.instructions }}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Image</label>
+            {{ form.image }}
+        </div>
+
+        <button class="btn btn-success w-100">
+            Create Recipe
+        </button>
+
+    </form>
+
 </div>
-
-<div class="mb-3">
-<label class="form-label">Description</label>
-{{ form.description }}
-</div>
-
-<div class="mb-3">
-<label class="form-label">Category</label>
-{{ form.category }}
-</div>
-
-<label class="form-label">Ingredients</label>
-
-<div id="ingredients-container">
-
-<div class="input-group mb-2 ingredient-row">
-    <input type="text" class="form-control ingredient-field" placeholder="Ingredient">
-
-    <button type="button" class="btn btn-danger remove-btn">
-        Remove
-    </button>
-</div>
-
-</div>
-
-<button type="button" class="btn btn-secondary mb-3" onclick="addIngredient()">
-Add Ingredient
-</button>
-
-{{ form.ingredients }}
-
-<div class="mb-3">
-<label class="form-label">Instructions</label>
-{{ form.instructions }}
-</div>
-
-<div class="mb-3">
-<label class="form-label">Image</label>
-{{ form.image }}
-</div>
-
-<button class="btn btn-success w-100">
-Create Recipe
-</button>
-
-</form>
-
-</div>
-
 
 <script>
+function addIngredient() {
+    const container = document.getElementById("ingredients-container");
 
-function addIngredient(){
-
-    const container = document.getElementById("ingredients-container")
-
-    const row = document.createElement("div")
-    row.className = "input-group mb-2 ingredient-row"
+    const row = document.createElement("div");
+    row.className = "input-group mb-2 ingredient-row";
 
     row.innerHTML = `
         <input type="text" class="form-control ingredient-field" placeholder="Ingredient">
+        <button type="button" class="btn btn-danger remove-btn">Remove</button>
+    `;
 
-        <button type="button" class="btn btn-danger remove-btn">
-            Remove
-        </button>
-    `
-
-    container.appendChild(row)
+    container.appendChild(row);
 }
 
-
+// Remove ingredient row when Remove button is clicked
 document.addEventListener("click", function(e){
-
-    if(e.target.classList.contains("remove-btn")){
-        e.target.parentElement.remove()
+    if (e.target.classList.contains("remove-btn")) {
+        e.target.parentElement.remove();
     }
+});
 
-})
-
-
-document.getElementById("recipeForm").addEventListener("submit", function(){
-
-    const fields = document.querySelectorAll(".ingredient-field")
-
-    let ingredients = []
+// On form submit, gather all ingredient fields into the hidden input
+document.getElementById("recipeForm").addEventListener("submit", function() {
+    const fields = document.querySelectorAll(".ingredient-field");
+    let ingredients = [];
 
     fields.forEach(field => {
-        if(field.value.trim() !== ""){
-            ingredients.push(field.value.trim())
+        if(field.value.trim() !== "") {
+            ingredients.push(field.value.trim());
         }
-    })
+    });
 
-    document.getElementById("id_ingredients").value = ingredients.join("\n")
-
-})
-
+    document.getElementById("id_ingredients").value = ingredients.join("\n");
+});
 </script>
 
 {% endblock %}
