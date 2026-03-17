@@ -6,7 +6,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'recipestatic/style.css' %}">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
 <nav class="navbar navbar-expand-sm navbar-dark custom-navbar">
     <div class="container d-flex align-items-center">
@@ -17,49 +17,107 @@
                 <img src="{% static 'recipestatic/Logoagian.png' %}" alt="Logo" class="logo-img me-2">
             </a>
 
-            <a class="nav-link text-white me-3" href="{% url 'holidays' %}">Holidays</a>
-            <a class="nav-link text-white" href="{% url 'health_diet' %}">Diet and Health</a>
+            <!-- Holidays Dropdown -->
+            <div class="nav-item dropdown me-3">
+                <a class="nav-link dropdown-toggle text-white"
+                   href="{% url 'holidays' %}"
+                   role="button"
+                   data-bs-toggle="dropdown"
+                   onclick="window.location.href=this.href">
+                    Holidays
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'holidays' %}?subcategory=mothers_day">Mothers Day</a></li>
+                    <li><a class="dropdown-item" href="{% url 'holidays' %}?subcategory=new_years">New Year</a></li>
+                </ul>
+            </div>
+
+            <!-- Diet & Health Dropdown -->
+            <div class="nav-item dropdown me-3">
+                <a class="nav-link dropdown-toggle text-white"
+                   href="{% url 'health_diet' %}"
+                   role="button"
+                   data-bs-toggle="dropdown"
+                   onclick="window.location.href=this.href">
+                    Diet and Health
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'health_diet' %}?subcategory=keto">Keto</a></li>
+                    <li><a class="dropdown-item" href="{% url 'health_diet' %}?subcategory=vegetarian">Vegetarian</a></li>
+                </ul>
+            </div>
+
+            <!-- Daily Recipes Dropdown -->
+            <div class="nav-item dropdown me-3">
+                <a class="nav-link dropdown-toggle text-white"
+                   href="{% url 'daily_all' %}"
+                   role="button"
+                   data-bs-toggle="dropdown"
+                   onclick="window.location.href=this.href">
+                    Daily Recipe
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'daily_all' %}?subcategory=breakfast">Breakfast</a></li>
+                    <li><a class="dropdown-item" href="{% url 'daily_all' %}?subcategory=lunch">Lunch</a></li>
+                    <li><a class="dropdown-item" href="{% url 'daily_all' %}?subcategory=dinner">Dinner</a></li>
+                    <li><a class="dropdown-item" href="{% url 'daily_all' %}?subcategory=dessert">Dessert</a></li>
+                    <li><a class="dropdown-item" href="{% url 'daily_all' %}?subcategory=drinks">Drinks</a></li>
+                </ul>
+            </div>
         </div>
 
         <!-- Right links -->
         <div class="d-flex align-items-center ms-auto">
 
-            <!-- Dropdown -->
-            <div class="nav-item dropdown me-3">
-                <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Daily Recipe
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="{% url 'breakfast' %}">Breakfast</a></li>
-                    <li><a class="dropdown-item" href="{% url 'lunch' %}">Lunch</a></li>
-                    <li><a class="dropdown-item" href="{% url 'dinner' %}">Dinner</a></li>
-                </ul>
-            </div>
+            <!-- Search form -->
+            {% if user.is_authenticated %}
+            <form class="d-flex me-3" method="get" action="{% url 'home' %}">
+                <input class="form-control me-2" type="search" placeholder="Search recipes..." aria-label="Search" name="q">
+                <button class="btn btn-outline-light" type="submit" style="font-size: 15px;">⌕</button>
+            </form>
+            {% endif %}
 
             {% if user.is_authenticated %}
-            <!-- Username + Logout -->
             <div class="user-logout-wrapper d-flex align-items-center">
+                <!-- Username -->
                 <a class="nav-link text-white me-3" href="{% url 'profile' %}">{{ user.username }}</a>
-                <a href="#" class="nav-link text-white logout-link" onclick="document.getElementById('logout-form').submit(); return false;">
+
+                <!-- Logout -->
+                <a href="#" class="nav-link text-white logout-link"
+                onclick="document.getElementById('logout-form').submit(); return false;">
                     Logout
                 </a>
                 <form id="logout-form" method="post" action="{% url 'logout' %}" style="display:none;">
                     {% csrf_token %}
                 </form>
+
+                <!-- Create Recipe Button AFTER Logout -->
+                <a href="{% url 'create_recipe' %}" class="ms-3" style="padding-bottom: 3px;">
+                    Create
+                </a>
             </div>
             {% else %}
             <a class="nav-link text-white me-3" href="{% url 'login' %}">Login</a>
             <a class="nav-link text-white" href="{% url 'signup' %}">Sign Up</a>
             {% endif %}
-
         </div>
 
     </div>
 </nav>
 
-<div class="container mt-4">
-    {% block content %}{% endblock %}
+<!-- Main Content -->
+<div class="container mt-4 flex-grow-1">
+    {% block content %}
+    {% endblock %}
+    <br>
 </div>
+
+<!-- Footer -->
+<footer class="mt-auto" style="background-color: #9BC264; color:#fff; padding: 20px 0;">
+    <div class="container text-center">
+        <p class="mb-1">&copy; Dough-lightful recipes</p>
+    </div>
+</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
