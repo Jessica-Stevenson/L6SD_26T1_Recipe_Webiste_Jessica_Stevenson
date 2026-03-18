@@ -24,13 +24,29 @@
                     <p class="card-text">
                         {{ recipe.description }}
                     </p>
+                    <div class="mt-auto d-flex gap-2 flex-wrap">
 
-                    <a href="{% url 'recipe_detail' recipe.id %}" class="btn btn-primary mt-auto">View Details</a>
-                    {% if user == recipe.user %}
-                    <a href="{% url 'delete_recipe' recipe.id %}" class="btn btn-danger mt-2">
-                        Delete
-                    </a>
-                    {% endif %}
+                        <a href="{% url 'recipe_detail' recipe.id %}"
+                        class="btn btn-sm"
+                        style="background-color:#9BC264; color:white; border:none;">
+                            View
+                        </a>
+
+                        {% if user == recipe.user %}
+                        <a href="{% url 'edit_recipe' recipe.id %}"
+                        class="btn btn-sm"
+                        style="background-color:#F7DB91; color:white; border:none;">
+                            Edit
+                        </a>
+
+                        <a href="{% url 'delete_recipe' recipe.id %}"
+                        class="btn btn-sm"
+                        style="background-color:#F075AE; color:white; border:none;">
+                            Delete
+                        </a>
+                        {% endif %}
+
+                    </div>
 
                 </div>
                 <div class="card-footer text-muted">

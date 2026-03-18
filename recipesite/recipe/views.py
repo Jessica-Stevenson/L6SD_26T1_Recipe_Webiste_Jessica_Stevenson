@@ -36,6 +36,22 @@ def recipe_detail_view(request, pk):
     recipe = get_object_or_404(Recipe, pk=pk)
     return render(request, 'food/recipe_detail.html', {'recipe': recipe})
 
+@login_required
+def edit_recipe_view(request, pk):
+    recipe = get_object_or_404(Recipe, pk=pk)
+
+    if recipe.user != request.user:
+        return HttpResponseForbidden("You cannot edit this recipe.")
+
+    if request.method == 'POST':
+        form = RecipeForm(request.POST, request.FILES, instance=recipe)
+        if form.is_valid():
+            form.save()
+            return redirect('recipe_detail', pk=recipe.pk)
+    else:
+        form = RecipeForm(instance=recipe)
+
+    return render(request, 'food/edit_recipe.html', {'form': form, 'recipe': recipe})
 
 #User
 @login_required
@@ -60,10 +76,9 @@ def signup_view(request):
 def home_view(request):
     q = request.GET.get('q')
     if q:
-        recipes = Recipe.objects.filter(title__icontains=q)
+        recipes = Recipe.objects.filter(title__icontains=q).order_by('-created_at')
     else:
-        recipes = Recipe.objects.all()
-    recipes = Recipe.objects.all().order_by('-created_at')
+        recipes = Recipe.objects.all().order_by('-created_at')
     return render(request, 'home.html', {'recipes': recipes})
 
 
