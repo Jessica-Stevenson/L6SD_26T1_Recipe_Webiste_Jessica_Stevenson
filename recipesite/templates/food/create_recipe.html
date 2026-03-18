@@ -9,51 +9,80 @@
 
         {% csrf_token %}
 
+        <!-- Show non-field errors (like category mismatch) -->
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+                {% for error in form.non_field_errors %}
+                    <div>{{ error }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- Recipe Title -->
         <div class="mb-3">
             <label class="form-label">Recipe Title</label>
             {{ form.title }}
+            {% if form.title.errors %}
+                <div class="text-danger">{{ form.title.errors.0 }}</div>
+            {% endif %}
         </div>
 
+        <!-- Description -->
         <div class="mb-3">
             <label class="form-label">Description</label>
             {{ form.description }}
+            {% if form.description.errors %}
+                <div class="text-danger">{{ form.description.errors.0 }}</div>
+            {% endif %}
         </div>
 
+        <!-- Main Category -->
         <div class="mb-3">
             <label class="form-label">Main Category</label>
             {{ form.main_category }}
+            {% if form.main_category.errors %}
+                <div class="text-danger">{{ form.main_category.errors.0 }}</div>
+            {% endif %}
         </div>
 
+        <!-- Sub Category -->
         <div class="mb-3">
             <label class="form-label">Sub Category (optional)</label>
             {{ form.sub_category }}
+            {% if form.sub_category.errors %}
+                <div class="text-danger">{{ form.sub_category.errors.0 }}</div>
+            {% endif %}
         </div>
 
+        <!-- Ingredients -->
         <label class="form-label">Ingredients</label>
-
         <div id="ingredients-container">
-            <!-- Initial ingredient row -->
             <div class="input-group mb-2 ingredient-row">
                 <input type="text" class="form-control ingredient-field" placeholder="Ingredient">
                 <button type="button" class="btn btn-danger remove-btn">Remove</button>
             </div>
         </div>
-
         <button type="button" class="btn btn-secondary mb-3" onclick="addIngredient()">
             Add Ingredient
         </button>
-
-        <!-- Hidden input for Django form -->
         <input type="hidden" id="id_ingredients" name="ingredients">
 
+        <!-- Instructions -->
         <div class="mb-3">
             <label class="form-label">Instructions</label>
             {{ form.instructions }}
+            {% if form.instructions.errors %}
+                <div class="text-danger">{{ form.instructions.errors.0 }}</div>
+            {% endif %}
         </div>
 
+        <!-- Image -->
         <div class="mb-3">
             <label class="form-label">Image</label>
             {{ form.image }}
+            {% if form.image.errors %}
+                <div class="text-danger">{{ form.image.errors.0 }}</div>
+            {% endif %}
         </div>
 
         <button class="btn btn-success w-100">
