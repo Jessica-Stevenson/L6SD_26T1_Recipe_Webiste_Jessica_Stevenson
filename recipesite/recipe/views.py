@@ -71,16 +71,26 @@ def signup_view(request):
         form = UserCreationForm()
     return render(request, 'registration/signup.html', {'form': form})
 
-
-#Home
+#home
 def home_view(request):
-    q = request.GET.get('q')
-    if q:
-        recipes = Recipe.objects.filter(title__icontains=q).order_by('-created_at')
-    else:
-        recipes = Recipe.objects.all().order_by('-created_at')
+    recipes = Recipe.objects.all().order_by('-created_at')
     return render(request, 'home.html', {'recipes': recipes})
 
+#search
+def search_view(request):
+    query = request.GET.get('q')
+
+    if query:
+        recipes = Recipe.objects.filter(
+            title__icontains=query
+        ).order_by('-created_at')
+    else:
+        recipes = Recipe.objects.none()
+
+    return render(request, 'food/search_results.html', {
+        'recipes': recipes,
+        'query': query
+    })
 
 #Daily Recipes
 def daily_view(request):

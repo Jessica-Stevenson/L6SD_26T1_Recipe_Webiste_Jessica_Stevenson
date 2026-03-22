@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2 class="text-center heading mb-4">
+        Search Results for {{ query }}
+    </h2>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for recipe in recipes %}
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+
+                {% if recipe.image %}
+                <img src="{{ recipe.image.url }}" class="card-img-top">
+                {% else %}
+                <img src="{% static 'recipestatic/Le_Logo.png' %}" class="card-img-top">
+                {% endif %}
+
+                <div class="card-body d-flex flex-column">
+                    <h5>{{ recipe.title }}</h5>
+                    <p>{{ recipe.description }}</p>
+
+                    <div class="mt-auto d-flex gap-2 flex-wrap">
+                        <a href="{% url 'recipe_detail' recipe.id %}"
+                           class="btn btn-sm"
+                           style="background-color:#9BC264; color:white;">
+                            View
+                        </a>
+
+                        {% if user == recipe.user %}
+                        <a href="{% url 'edit_recipe' recipe.id %}"
+                           class="btn btn-sm"
+                           style="background-color:#F7DB91; color:white;">
+                            Edit
+                        </a>
+
+                        <a href="{% url 'delete_recipe' recipe.id %}"
+                           class="btn btn-sm"
+                           style="background-color:#F075AE; color:white;">
+                            Delete
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="card-footer text-muted">
+                    Posted by {{ recipe.user.username }} on {{ recipe.created_at|date:"M d, Y" }}
+                </div>
+
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center">No results found.</p>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}
