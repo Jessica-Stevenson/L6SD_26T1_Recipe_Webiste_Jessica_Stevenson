@@ -8,7 +8,6 @@ CATEGORY_SUBCATEGORY_MAP = {
 }
 
 
-
 class RecipeForm(forms.ModelForm):
 
     class Meta:
