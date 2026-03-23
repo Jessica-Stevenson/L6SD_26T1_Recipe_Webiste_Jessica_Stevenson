@@ -33,17 +33,19 @@
         <label class="form-label">Ingredients</label>
 
         <div id="ingredients-container">
-            {% for ingredient in recipe.ingredients.splitlines %}
-            <div class="input-group mb-2 ingredient-row">
-                <input type="text" class="form-control ingredient-field" value="{{ ingredient }}">
-                <button type="button" class="btn btn-danger remove-btn">Remove</button>
-            </div>
-            {% empty %}
-            <div class="input-group mb-2 ingredient-row">
-                <input type="text" class="form-control ingredient-field" placeholder="Ingredient">
-                <button type="button" class="btn btn-danger remove-btn">Remove</button>
-            </div>
-            {% endfor %}
+            {% if recipe.ingredients %}
+                {% for ingredient in recipe.ingredients.splitlines %}
+                <div class="input-group mb-2 ingredient-row">
+                    <textarea class="form-control ingredient-field" rows="1">{{ ingredient }}</textarea>
+                    <button type="button" class="btn btn-danger remove-btn">Remove</button>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="input-group mb-2 ingredient-row">
+                    <textarea class="form-control ingredient-field" rows="1" placeholder="Ingredient"></textarea>
+                    <button type="button" class="btn btn-danger remove-btn">Remove</button>
+                </div>
+            {% endif %}
         </div>
 
         <button type="button" class="btn btn-secondary mb-3" onclick="addIngredient()">
@@ -83,7 +85,7 @@ function addIngredient() {
     row.className = "input-group mb-2 ingredient-row";
 
     row.innerHTML = `
-        <input type="text" class="form-control ingredient-field" placeholder="Ingredient">
+        <textarea class="form-control ingredient-field" rows="1" placeholder="Ingredient"></textarea>
         <button type="button" class="btn btn-danger remove-btn">Remove</button>
     `;
 
@@ -108,7 +110,8 @@ document.getElementById("recipeForm").addEventListener("submit", function() {
         }
     });
 
-    document.getElementById("id_ingredients").value = ingredients.join("\\n");
+    // Use real newlines
+    document.getElementById("id_ingredients").value = ingredients.join("\n");
 });
 </script>
 
