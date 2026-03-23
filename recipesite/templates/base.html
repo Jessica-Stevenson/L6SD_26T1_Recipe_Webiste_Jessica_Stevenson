@@ -79,7 +79,7 @@
             {% if user.is_authenticated %}
             <div class="user-logout-wrapper d-flex align-items-center">
                 <!-- Username -->
-                <a class="nav-link text-white me-3" href="{% url 'profile' %}">{{ user.username }}</a>
+                <a class="nav-link text-white me-3" href="{% url 'home' %}">{{ user.username }}</a>
 
                 <!-- Logout -->
                 <a href="#" class="nav-link text-white logout-link"

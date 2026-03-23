@@ -66,6 +66,9 @@
             Add Ingredient
         </button>
         <input type="hidden" id="id_ingredients" name="ingredients">
+        {% if form.ingredients.errors %}
+            <div class="text-danger">{{ form.ingredients.errors.0 }}</div>
+        {% endif %}
 
         <!-- Instructions -->
         <div class="mb-3">
@@ -108,15 +111,15 @@ function addIngredient() {
     container.appendChild(row);
 }
 
-// Remove ingredient row when Remove button is clicked
+//Remove ingredient row
 document.addEventListener("click", function(e){
     if (e.target.classList.contains("remove-btn")) {
         e.target.parentElement.remove();
     }
 });
 
-// On form submit, gather all ingredient fields into the hidden input
-document.getElementById("recipeForm").addEventListener("submit", function() {
+//Form validation
+document.getElementById("recipeForm").addEventListener("submit", function(e) {
     const fields = document.querySelectorAll(".ingredient-field");
     let ingredients = [];
 
@@ -125,6 +128,19 @@ document.getElementById("recipeForm").addEventListener("submit", function() {
             ingredients.push(field.value.trim());
         }
     });
+
+    if (ingredients.length === 0) {
+        alert("Please add at least one ingredient.");
+        e.preventDefault();
+        return;
+    }
+
+    const imageInput = document.getElementById("id_image");
+    if (!imageInput.value) {
+        alert("Please upload an image.");
+        e.preventDefault();
+        return;
+    }
 
     document.getElementById("id_ingredients").value = ingredients.join("\n");
 });
