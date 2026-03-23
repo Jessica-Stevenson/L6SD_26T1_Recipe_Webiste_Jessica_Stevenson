@@ -16,4 +16,4 @@ Upon opening visual studio code here are the commands to run:
 And to run the website:
 
 - python manage.py runserver
-Then head to http://127.0.0.1:8000/
+- Then head to http://127.0.0.1:8000/
